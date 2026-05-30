@@ -5,12 +5,11 @@ import streamlit as st
 from data.identities import IDENTITIES
 from data.tasks import TASKS
 from utils.database import init_db, save_submission
+from utils.ui import configure_page, page_header
 
 
-st.set_page_config(page_title="Submit Reflection", page_icon="BI", layout="centered")
+configure_page("Reflection")
 init_db()
-
-st.title("Submit Reflection")
 
 user_id = st.session_state.get("user_id")
 identity_id = st.session_state.get("identity_id")
@@ -24,23 +23,41 @@ if not user_id or not identity_id or not challenge_type:
 identity = IDENTITIES[identity_id]
 task = TASKS[identity["task_id"]]
 
-st.caption(identity["title"])
-st.write("Your reflection is saved for the pilot. Anonymous wall sharing is optional and reviewed first.")
+page_header(
+    "Reflection",
+    "Submit Reflection",
+    "Your reflection is saved for the pilot. Anonymous wall sharing is optional and reviewed first.",
+)
 
-with st.form("submission_form"):
-    what_did_you_do = st.text_area("What did you do?", height=110)
-    location_text = st.text_input("Where did you go?", placeholder="Example: near Prinsengracht")
-    what_did_you_notice = st.text_area("What did you notice?", height=110)
-    how_did_you_feel = st.text_area("How did you feel after the task?", height=110)
-    post_belonging_score = st.slider("Belonging score after the task", 1, 10, 5)
-    recommendation_score = st.slider("How likely are you to recommend this experience?", 1, 10, 7)
-    pass_forward_note = st.text_area(
-        "What would you tell the next person with this identity?",
-        height=110,
+form_col, side_col = st.columns([1.25, 0.75], gap="large")
+
+with form_col:
+    with st.form("submission_form"):
+        what_did_you_do = st.text_area("What did you do?", height=130)
+        location_text = st.text_input("Where did you go?", placeholder="Example: near Prinsengracht")
+        what_did_you_notice = st.text_area("What did you notice?", height=130)
+        how_did_you_feel = st.text_area("How did you feel after the task?", height=130)
+        post_belonging_score = st.slider("Belonging score after the task", 1, 10, 5)
+        recommendation_score = st.slider("How likely are you to recommend this experience?", 1, 10, 7)
+        pass_forward_note = st.text_area(
+            "What would you tell the next person with this identity?",
+            height=130,
+        )
+        consent_for_wall = st.checkbox("Yes, this note can be shown anonymously after review.")
+
+        submitted = st.form_submit_button("Submit reflection", type="primary", width="stretch")
+
+with side_col:
+    st.markdown(
+        f"""
+        <div class="hastory-card">
+            <div class="hastory-card-label">Current identity</div>
+            <h3>{identity["title"]}</h3>
+            <p>{task["reflection_prompt"]}</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
-    consent_for_wall = st.checkbox("Yes, this note can be shown anonymously after review.")
-
-    submitted = st.form_submit_button("Submit reflection", type="primary", width="stretch")
 
 if submitted:
     required_fields = [what_did_you_do, what_did_you_notice, how_did_you_feel, pass_forward_note]

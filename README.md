@@ -1,6 +1,6 @@
-# Borrowed Identity Streamlit MVP
+# Hastory Streamlit MVP
 
-A small Streamlit demo for a role-based belonging experience for international students in Amsterdam.
+A small Streamlit demo for Hastory's role-based belonging experience for international students in Amsterdam.
 
 ## Flow
 

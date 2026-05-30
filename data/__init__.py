@@ -1,1 +1,1 @@
-"""Static content for the Borrowed Identity Streamlit MVP."""
+"""Static content for the Hastory Streamlit MVP."""

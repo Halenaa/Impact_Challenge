@@ -5,28 +5,51 @@ import streamlit as st
 from data.questions import QUESTIONS
 from utils.database import init_db, save_profile, save_user
 from utils.matching import calculate_scores, get_challenge_type, match_identity
+from utils.ui import configure_page, page_header
 
 
-st.set_page_config(page_title="Belonging Profile", page_icon="BI", layout="centered")
+configure_page("Profile")
 init_db()
 
-st.title("Belonging Profile")
-st.write("Answer a few questions so the demo can match you with a temporary city identity.")
+page_header(
+    "Profile",
+    "Belonging Profile",
+    "Answer a few questions so Hastory can match you with a temporary city identity.",
+)
 
-with st.form("profile_form"):
-    nickname = st.text_input("Nickname", placeholder="Choose any name for this pilot")
-    email_optional = st.text_input("Email (optional)", placeholder="Only if you want follow-up")
-    pre_belonging_score = st.slider("Current belonging score", 1, 10, 5)
+form_col, context_col = st.columns([1.25, 0.75], gap="large")
 
-    answers: dict[str, str] = {}
-    for question in QUESTIONS:
-        answers[question["id"]] = st.radio(
-            question["label"],
-            question["options"],
-            key=question["id"],
-        )
+with form_col:
+    with st.form("profile_form"):
+        nickname = st.text_input("Nickname", placeholder="Choose any name for this pilot")
+        email_optional = st.text_input("Email (optional)", placeholder="Only if you want follow-up")
+        pre_belonging_score = st.slider("Current belonging score", 1, 10, 5)
 
-    submitted = st.form_submit_button("See my borrowed identity", type="primary", width="stretch")
+        answers: dict[str, str] = {}
+        for question in QUESTIONS:
+            answers[question["id"]] = st.radio(
+                question["label"],
+                question["options"],
+                key=question["id"],
+            )
+
+        submitted = st.form_submit_button("See my identity", type="primary", width="stretch")
+
+with context_col:
+    st.markdown(
+        """
+        <div class="hastory-card">
+            <div class="hastory-card-label">Pilot profile</div>
+            <h3>Three challenge types</h3>
+            <p>
+                The first version uses a lightweight rule-based match across connection,
+                belonging, and value challenges. It keeps the demo fast and easy to test
+                with a small student group.
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 if submitted:
     if not nickname.strip():

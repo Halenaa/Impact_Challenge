@@ -8,12 +8,13 @@ import streamlit as st
 from data.identities import IDENTITIES
 from utils.database import approve_submission, get_dashboard_data, init_db
 from utils.safety import flag_sensitive_content
+from utils.ui import configure_page, page_header
 
 
-st.set_page_config(page_title="Admin Dashboard", page_icon="BI", layout="wide")
+configure_page("Admin")
 init_db()
 
-st.title("Admin Dashboard")
+page_header("Admin", "Dashboard", "Pilot metrics, wall review, and CSV export for Hastory.")
 
 try:
     configured_password = st.secrets.get("ADMIN_PASSWORD")

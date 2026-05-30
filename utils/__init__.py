@@ -1,1 +1,1 @@
-"""Utility functions for the Borrowed Identity Streamlit MVP."""
+"""Utility functions for the Hastory Streamlit MVP."""

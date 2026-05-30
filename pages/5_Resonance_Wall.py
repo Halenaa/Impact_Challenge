@@ -4,13 +4,17 @@ import streamlit as st
 
 from data.identities import IDENTITIES
 from utils.database import get_public_wall_posts, init_db
+from utils.ui import configure_page, page_header
 
 
-st.set_page_config(page_title="Resonance Wall", page_icon="BI", layout="wide")
+configure_page("Wall")
 init_db()
 
-st.title("Anonymous Resonance Wall")
-st.write("You are not the only one. These notes were shared anonymously and approved for the wall.")
+page_header(
+    "Wall",
+    "Anonymous Resonance Wall",
+    "You are not the only one. These notes were shared anonymously and approved for the wall.",
+)
 
 posts = get_public_wall_posts()
 
@@ -18,7 +22,7 @@ if posts.empty:
     st.info("No approved notes yet. Once the pilot has reviewed shared reflections, they will appear here.")
     st.stop()
 
-columns = st.columns(3)
+columns = st.columns(3, gap="large")
 for index, post in posts.iterrows():
     identity = IDENTITIES.get(post["identity_id"], {"title": post["identity_id"]})
     with columns[index % 3]:
