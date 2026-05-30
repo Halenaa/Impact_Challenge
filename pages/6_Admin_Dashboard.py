@@ -15,10 +15,20 @@ init_db()
 page_header("Admin", "Dashboard", "Pilot metrics, wall review, and CSV export for Hastory.")
 
 admin_password = "hastory"
-password = st.text_input("Admin password", type="password")
 
-if password != admin_password:
-    st.info("Enter the admin password to view pilot data.")
+if not st.session_state.get("admin_authenticated", False):
+    with st.form("admin_login_form"):
+        password = st.text_input("Admin password", type="password")
+        submitted = st.form_submit_button("Enter dashboard", type="primary", width="stretch")
+
+    if submitted and password == admin_password:
+        st.session_state["admin_authenticated"] = True
+        st.rerun()
+
+    if submitted:
+        st.error("Incorrect admin password.")
+    else:
+        st.info("Enter the admin password to view pilot data.")
     st.stop()
 
 data = get_dashboard_data()
