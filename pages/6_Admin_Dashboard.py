@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import os
-
 import pandas as pd
 import streamlit as st
 
@@ -16,11 +14,7 @@ init_db()
 
 page_header("Admin", "Dashboard", "Pilot metrics, wall review, and CSV export for Hastory.")
 
-try:
-    configured_password = st.secrets.get("ADMIN_PASSWORD")
-except Exception:
-    configured_password = None
-admin_password = configured_password or os.getenv("ADMIN_PASSWORD", "hastory")
+admin_password = "hastory"
 password = st.text_input("Admin password", type="password")
 
 if password != admin_password:
