@@ -20,7 +20,7 @@ try:
     configured_password = st.secrets.get("ADMIN_PASSWORD")
 except Exception:
     configured_password = None
-admin_password = configured_password or os.getenv("ADMIN_PASSWORD", "borrowed-admin")
+admin_password = configured_password or os.getenv("ADMIN_PASSWORD", "hastory")
 password = st.text_input("Admin password", type="password")
 
 if password != admin_password:

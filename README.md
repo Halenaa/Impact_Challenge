@@ -27,7 +27,7 @@ Delete that local file when you want to reset demo data before a new pilot run.
 The default admin password is:
 
 ```text
-borrowed-admin
+hastory
 ```
 
 For deployment, set `ADMIN_PASSWORD` in Streamlit secrets or as an environment variable.
