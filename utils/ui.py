@@ -202,6 +202,50 @@ def apply_theme() -> None:
             margin-top: 1.5rem;
         }
 
+        .hastory-hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        .hastory-primary-link,
+        .hastory-secondary-link {
+            display: inline-flex;
+            min-height: 3.35rem;
+            min-width: 11.5rem;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1rem;
+            padding: 0.8rem 1.2rem;
+            text-decoration: none !important;
+            font-size: 1.05rem;
+            font-weight: 850;
+            border: 1px solid rgba(35, 36, 47, 0.12);
+        }
+
+        .hastory-primary-link {
+            background: var(--hastory-coral);
+            border-color: var(--hastory-coral);
+            color: white !important;
+            box-shadow: 0 16px 34px rgba(242, 85, 75, 0.22);
+        }
+
+        .hastory-primary-link:hover {
+            background: var(--hastory-coral-dark);
+            border-color: var(--hastory-coral-dark);
+        }
+
+        .hastory-secondary-link {
+            background: rgba(255, 255, 255, 0.72);
+            color: var(--hastory-ink) !important;
+        }
+
+        .hastory-secondary-link:hover {
+            color: var(--hastory-coral-dark) !important;
+            border-color: rgba(242, 85, 75, 0.28);
+        }
+
         .hastory-side-panel,
         .hastory-panel {
             border: 1px solid var(--hastory-line);
@@ -392,6 +436,11 @@ def apply_theme() -> None:
             }
 
             .hastory-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .hastory-hero-actions {
+                display: grid;
                 grid-template-columns: 1fr;
             }
         }

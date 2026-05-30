@@ -9,11 +9,18 @@ from utils.ui import configure_page, flow_card
 configure_page("Home")
 init_db()
 
-left, right = st.columns([1.22, 0.78], gap="large", vertical_alignment="center")
+flow_html = "".join(
+    [
+        flow_card(1, "Profile", "Answer a short belonging questionnaire."),
+        flow_card(2, "Identity", "Receive a temporary city role."),
+        flow_card(3, "Mission", "Complete a small offline Amsterdam task."),
+        flow_card(4, "Wall", "Read approved anonymous notes from others."),
+    ]
+)
 
-with left:
-    st.markdown(
-        """
+st.markdown(
+    f"""
+    <div class="hastory-hero">
         <div class="hastory-hero-main">
             <div class="hastory-kicker">Amsterdam belonging pilot</div>
             <h1>Hastory</h1>
@@ -27,40 +34,20 @@ with left:
                 <span class="hastory-chip">Amsterdam missions</span>
                 <span class="hastory-chip">Anonymous wall</span>
             </div>
+            <div class="hastory-hero-actions">
+                <a class="hastory-primary-link" href="/Profile_Questionnaire" target="_self">Start profile</a>
+                <a class="hastory-secondary-link" href="/Admin_Dashboard" target="_self">Admin</a>
+            </div>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
-    action_left, action_right = st.columns([0.62, 0.38], gap="medium")
-    with action_left:
-        if st.button("Start profile", type="primary", width="stretch"):
-            st.switch_page("pages/1_Profile_Questionnaire.py")
-    with action_right:
-        st.page_link(
-            "pages/6_Admin_Dashboard.py",
-            label="Admin",
-            icon=":material/admin_panel_settings:",
-        )
-
-with right:
-    flow_html = "".join(
-        [
-            flow_card(1, "Profile", "Answer a short belonging questionnaire."),
-            flow_card(2, "Identity", "Receive a temporary city role."),
-            flow_card(3, "Mission", "Complete a small offline Amsterdam task."),
-            flow_card(4, "Wall", "Read approved anonymous notes from others."),
-        ]
-    )
-    st.markdown(
-        f"""
         <div class="hastory-side-panel">
             <div class="hastory-card-label">Experience route</div>
             <h2>One complete pilot loop</h2>
             <div class="hastory-flow">{flow_html}</div>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 st.markdown(
     """
