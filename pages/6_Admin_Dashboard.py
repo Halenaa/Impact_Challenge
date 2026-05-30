@@ -4,7 +4,7 @@ import pandas as pd
 import streamlit as st
 
 from data.identities import IDENTITIES
-from utils.database import approve_submission, get_dashboard_data, init_db
+from utils.database import approve_submission, create_demo_records, get_dashboard_data, init_db
 from utils.safety import flag_sensitive_content
 from utils.ui import configure_page, page_header
 
@@ -30,6 +30,17 @@ if not st.session_state.get("admin_authenticated", False):
     else:
         st.info("Enter the admin password to view pilot data.")
     st.stop()
+
+with st.container(border=True):
+    st.markdown("**Demo data**")
+    st.write("Create 10 sample pilot records for testing the dashboard and resonance wall.")
+    if st.button("Create 10 demo records", type="primary"):
+        created_count = create_demo_records()
+        if created_count:
+            st.success(f"Created {created_count} demo records.")
+        else:
+            st.info("Demo records already exist.")
+        st.rerun()
 
 data = get_dashboard_data()
 users = data["users"]
