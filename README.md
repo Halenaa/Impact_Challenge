@@ -43,12 +43,11 @@ Received showcase cards:
 - Shared Kitchen Host: front and back saved.
 - Bike Messenger: front and back saved.
 - Canal Letter Writer: front and back saved.
+- City Signal Collector: front and back saved.
+- Museum Apprentice: front and back saved.
+- Second-hand Explorer: front and back saved.
 
-Still needed for the full showcase set:
-
-- City Signal Collector: front and back.
-- Museum Apprentice: front and back.
-- Second-hand Explorer: front and back.
+The short-term showcase set is complete with six identity cards, each with a front and back image.
 
 ## Run Locally
 
