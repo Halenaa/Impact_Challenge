@@ -364,6 +364,22 @@ def apply_theme() -> None:
             margin-bottom: 0;
         }
 
+        [data-testid="stImage"] img {
+            border-radius: 1.35rem;
+            border: 1px solid rgba(35, 36, 47, 0.12);
+            box-shadow: var(--hastory-shadow);
+            background: rgba(255, 255, 255, 0.72);
+        }
+
+        [data-testid="stTabs"] {
+            margin-top: 0.35rem;
+        }
+
+        [data-testid="stTabs"] button {
+            font-size: 1rem;
+            font-weight: 850;
+        }
+
         div[data-testid="stVerticalBlockBorderWrapper"] {
             border-radius: 1.2rem !important;
             background: rgba(255, 255, 255, 0.84) !important;
